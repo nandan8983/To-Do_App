@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do_App</title>
+    <style>
+        .todo{
+            margin-top: 12%;
+            margin-left: auto;
+            margin-right: auto;
+            align-content: center;
+            text-align: center;
+            width: max-content;
+            border-radius: 5px;
+            width: 70%;
+        }
+        .box{
+            background-color: rgb(218, 218, 218);
+            z-index: 0;
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 0;
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        
+        .list{
+            flex: 0 0 auto;
+            width: 50%;
+            box-shadow: 5px 0px 10px grey;
+        }
+        .list > h3{
+            padding-left: 10px;
+            font-size: 30px;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .list > p{
+            padding-left: 10px;
+            font-size: 14px;
+            text-align: left;
+        }
+        .inputArea{
+            flex: 0 0 auto;
+            width: 50%;
+            z-index: -1;
+        }
+        .inputText{
+            width: -webkit-fill-available;
+            padding-left: 20px;
+            font-size: 30px;
+            border: transparent;
+            outline: none;
+            height: 129px;
+        }
+        .list > ul{
+            list-style-type: none;
+            padding-left: 10px;
+            text-align: left;
+        }
+        .listItem{
+            display: flex;
+            flex-direction: row;
+            
+            align-items: center;
+            width: 100%;
+            height: auto;
+            
+        }
+        .listContent{
+            display:flex;
+            font-size: 18px;
+            padding-right: 10px;
+            flex-direction: row;
+            align-items: self-start;
+            width: 80%;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+        .check{
+            display: flex;
+            flex-direction: row;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid black;
+            outline: none;
+            
+        }
+        .deleteBtn{
+            display: flex;
+            flex-direction: column;
+            width: 20px;
+            height: 20px;
+            right: 0;
+            border: none;
+            outline: none;
+            color: rgb(251, 12, 12);
+            background-color: transparent;
+            
+        }
+    @media only screen and (max-width: 600px){
+        .box{
+            width: 100%;
+        }
+        .list{
+            width: 100%;
+        }
+        .inputArea{
+            width: 100%;
+        }
+        .todo{
+            margin-top: 0%;
+        }
+
+    }
+    </style>
+</head>
+<body>
+    
+<div class="todo"> 
+        <h1>To Do List Application</h1>
+    <div class="box">
+         <div class="list" id="listAA"> 
+            <h3>TASK LIST</h3>
+            <p>Add tasks to your list by typing to the right add pressing enter. You may then view pending tasks below.</p>
+            <ul id="todoList">
+                <!-- <li class="listItem">
+                    <p class="listContent">hello</p>
+                    <input class="check" type="checkbox" checked>
+                    <button class="deleteBtn" >X</button>
+                </li> -->
+            </ul>
+        </div>
+         <div class="inputArea">
+            <input type="text" class="inputText" placeholder="I need to..." id="inputArea">
+        </div>
+    </div>
+</div>
+</body>
+<script src="/script.js"></script>
+</html>
