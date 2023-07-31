@@ -1,4 +1,5 @@
 
+
 let inputArea = document.getElementById('inputArea');
 let list = document.getElementById('todoList');
 let listAA = document.getElementById('listAA');
@@ -13,21 +14,24 @@ inputArea.addEventListener('keypress', (event) => {
                 'Content-Type': 'application/json'
             }
         }).then((res) => {
+            console.log(res.session);
             res.json().then(async (data) => {
                 await renderList(data);
             }); });
+
         inputArea.value = '';
     }
 });
 
-fetch('/todoData').then((res) => {
-    res.json().then(async (data) => {
-        await renderList(data);
-    });
-});
+// fetch('/todoData').then((res) => {
+//     res.json().then(async (data) => {
+//         await renderList(data);
+//     });
+// });
 
 
 async function renderList(data){
+    
     list.innerHTML = '';
     await data.forEach((item) => {
         let listItem = document.createElement('li');
