@@ -4,29 +4,6 @@ let list = document.getElementById('todoList');
 let listAA = document.getElementById('listAA');
 
 
-inputArea.addEventListener('keypress', (event) => {
-    if (event.key === "Enter" && inputArea.value !== '') {
-        fetch('/add', {
-            method: 'POST',
-            body: JSON.stringify({ item: inputArea.value, checked: false, id: Date.now() }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((res) => {
-            res.json().then(async (data) => {
-                await renderList(data);
-            }); });
-        inputArea.value = '';
-    }
-});
-
-fetch('/todoData').then((res) => {
-    res.json().then(async (data) => {
-        await renderList(data);
-    });
-});
-
-
 async function renderList(data){
     list.innerHTML = '';
     await data.forEach((item) => {
@@ -34,6 +11,10 @@ async function renderList(data){
         listItem.className = "listItem";
         listItem.id = item.id;
         let checkBox = document.createElement('input');
+        let image = document.createElement('img');
+        image.src = "https://res.cloudinary.com/dciyhiktq/image/upload/v1691085514/"+ item.public_id +".png";
+        image.alt = item.image;
+        image.className = "imagebox";
         checkBox.type = "checkbox";
         checkBox.className = "check";
         if (item.checked === true) {
@@ -45,16 +26,15 @@ async function renderList(data){
         }
         InputValue.className = "listContent";
         InputValue.innerHTML = item.item;
-        let deleteButton = document.createElement('button');
+        let deleteButton = document.createElement('img');
+        deleteButton.src = "icons8-delete-24.png";
         deleteButton.className = "deleteBtn";
-        deleteButton.innerHTML = "X";
         listItem.appendChild(InputValue);
+        listItem.appendChild(image);
         listItem.appendChild(checkBox);
         listItem.appendChild(deleteButton);
         list.appendChild(listItem);
     });
-    inputArea.style.height = list.offsetHeight+ 143 + "px";
-    
 
 }
 
@@ -66,7 +46,7 @@ list.addEventListener('click', (e)=>{
     else if(e.target.tagName === 'INPUT' && e.target.checked === false){
         updateStatus(e.target.parentElement.firstChild.innerHTML, false, e.target.parentElement.id);
     }
-    else if(e.target.tagName === 'BUTTON'){
+    else if(e.target.tagName === 'IMG'){
         deleteItem(e.target.parentElement.id);
 
     }
@@ -81,11 +61,14 @@ function updateStatus(item, checked, id ) {
             'Content-Type': 'application/json'
         }
     }).then((res) => {
+        console.log(res.status);
         res.json().then(async (data) => {
-            await renderList(data);
-        }); }
-    );
+                    await renderList(data);
+                });
+        }); 
 }
+    
+
 
 function deleteItem(id) {
     fetch('/delete', {
@@ -95,8 +78,9 @@ function deleteItem(id) {
             'Content-Type': 'application/json'
         }
     }).then((res) => {
+        console.log(res.status);
         res.json().then(async (data) => {
             await renderList(data);
-        }); }
-    );
+        });
+    }); 
 }
